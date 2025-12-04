@@ -77,11 +77,11 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
             }
             P = new elm_dokter;
             P->info = dataP;
-            P->next_dokter = NULL;
+            P->next_dokter = nullptr;
             insert_dokter(Lp, P);
             cout << "Data dokter berhasil ditambahkan" << endl;
         }else if(pilihan == 2){
-            P = NULL;
+            P = nullptr;
             delete_dokter(Lp, P);
             if (P != nullptr){
                 delete_relasidokter(Lr, P);
@@ -164,7 +164,7 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
             count_pasienTanpadokter(Lr, Lc);
         }else if(pilihan == 6){
             find_pasien(Lc, C);
-            while (C == NULL){
+            while (C == nullptr){
                 cout << "Data pasien tidak ditemukan" << endl;
                 find_pasien(Lc, C);
             }
@@ -189,8 +189,8 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
         cout << "|   3. Check relasi                                        |" << endl;
         cout << "|   4. Menampilkan pasien & relasinya                      |" << endl;
         cout << "|   5. Menampilkan dokter & relasinya                      |" << endl;
-        cout << "|   6. edit relasi Dari dokter                             |" << endl;
-        cout << "|   7. edit relasi Dari pasien                             |" << endl;
+        cout << "|   6. Edit relasi dari dokter                             |" << endl;
+        cout << "|   7. Edit relasi dari pasien                             |" << endl;
         cout << "|   8. Kembali                                             |" << endl;
         cout << "------------------------------------------------------------" << endl;
         cout << "Masukkan pilihan: ";
@@ -203,11 +203,11 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
                 find_dokter(Lp, P);
             }
             find_pasien(Lc, C);
-            while ( C == nullptr){
+            while (C == nullptr){
                 cout << "Data pasien tidak ditemukan" << endl;
                 find_pasien(Lc, C);
             }
-            cout << "Masukkan Info relasi: ";
+            cout << "Masukkan Info relasi(Keluhan): ";
             cin >> dataR;
             R = new elm_relasi;
             R->info = dataR;
@@ -236,7 +236,7 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
             cout << "relasi berhasil dihapus" << endl;
         }else if (pilihan == 3){
             find_dokter(Lp, P);
-            while (P == NULL){
+            while (P == nullptr){
                 cout << "Data dokter tidak ditemukan" << endl;
                 find_dokter(Lp, P);
             }
@@ -575,14 +575,14 @@ void count_pasien(List_relasi L, adr_dokter P){
         cout << "Data relasi kosong" << endl;
     }else{
         adr_relasi R = L.first;
-        int count_ = 0;
+        int count = 0;
         while(R != nullptr){
             if(R->next_dokter == P){
-                count_++;
+                count++;
             }
             R = R->next_relasi;
         }
-        cout << "|   Total pasien di dokter " << P->info.nama << ": " << count_ << endl;
+        cout << "|   Total pasien di dokter " << P->info.nama << ": " << count << endl;
     }
 }
 
@@ -598,7 +598,7 @@ void count_dokter(List_relasi L, adr_pasien P){
             }
             R = R->next_relasi;
         }
-        cout << "|   Total dokter dari pasien " << P->info.nama << ": " << count_ << endl;
+        cout << "|   Total dokter dari pasien " << P->info.nama << ": " << count << endl;
     }
 }
 
@@ -623,7 +623,7 @@ void count_dokterTanpapasien(List_relasi Lr, List_dokter Lp){
             }
             P = P->next_dokter;
         }
-        cout << "|   Total dokter yang tidak memiliki pasien: " << count_ << endl;
+        cout << "|   Total dokter yang tidak memiliki pasien: " << count << endl;
     }
 }
 
@@ -649,7 +649,7 @@ void count_pasienTanpadokter(List_relasi Lr, List_pasien Lc){
             }
             P = P->next_pasien;
         }
-        cout << "|   Total pasien yang tidak memiliki dokter: " << count_ << endl;
+        cout << "|   Total pasien yang tidak memiliki dokter: " << count << endl;
     }
 }
 
