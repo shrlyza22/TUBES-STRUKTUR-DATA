@@ -93,7 +93,7 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
         }else if(pilihan == 4){
             show_dokter(Lp);
         }else if(pilihan == 5){
-            count_pasienTanpadokter(Lr, Lc);
+            count_dokterTanpapasien(Lr, Lp);
         }else if(pilihan == 6){
             find_dokter(Lp, P);
             while (P == nullptr){
@@ -187,8 +187,8 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
         cout << "|   1. Menambahkan relasi                                  |" << endl;
         cout << "|   2. Menghapus relasi                                    |" << endl;
         cout << "|   3. Check relasi                                        |" << endl;
-        cout << "|   4. Menampilkan pasien & relasinya                      |" << endl;
-        cout << "|   5. Menampilkan dokter & relasinya                      |" << endl;
+        cout << "|   4. Menampilkan dokter & relasinya                      |" << endl;
+        cout << "|   5. Menampilkan pasien & relasinya                      |" << endl;
         cout << "|   6. Edit relasi dari dokter                             |" << endl;
         cout << "|   7. Edit relasi dari pasien                             |" << endl;
         cout << "|   8. Kembali                                             |" << endl;
@@ -261,10 +261,13 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
                 cout << "Data pasien tidak ditemukan" << endl;
                 find_pasien(Lc, C);
             }
+
             checkrelasi(Lr, C, P, R);
             if (R != nullptr){
                 find_pasien(Lc, D);
-                edit_dokter(Lr, P, C, D);
+                cout << "Masukkan Info relasi(Keluhan): ";
+                cin >> R->info;
+                R->next_pasien = D;
                 cout << "relasi berhasil diubah" << endl;
             }
         }else if (pilihan == 7){
@@ -281,7 +284,9 @@ void menu(List_relasi &Lr, List_dokter &Lp, List_pasien &Lc){
             checkrelasi(Lr, C, P, R);
             if (R != nullptr){
                 find_dokter(Lp, Q);
-                edit_pasien(Lr, C, P, Q);
+                cout << "Masukkan Info relasi(Keluhan): ";
+                cin >> R->info;
+                R->next_dokter = Q;
                 cout << "relasi berhasil diubah" << endl;
             }
         }else if (pilihan == 8){
@@ -361,22 +366,19 @@ void delete_pasien(List_pasien &L, adr_pasien &P){
 }
 
 void delete_relasi(List_relasi &L ,adr_relasi &P){
-    if(L.first == nullptr){
+    if (L.first == nullptr){
         cout << "Data relasi kosong" << endl;
-    }else{
-        if(P == L.first){
+    } else {
+        if (P == L.first){
             L.first = P->next_relasi;
-            P->next_relasi = nullptr;
-        }else{
+        } else {
             adr_relasi Q = L.first;
-            while(Q->next_relasi != P){
+            while (Q->next_relasi != P){
                 Q = Q->next_relasi;
             }
-            if (P->next_relasi != nullptr){
-                Q->next_relasi = P->next_relasi;
-            }
-            Q->next_relasi = nullptr;
+            Q->next_relasi = P->next_relasi;
         }
+        P->next_relasi = nullptr;
     }
 }
 
@@ -526,7 +528,7 @@ void show_dokter_daripasien(List_relasi L, adr_pasien P){
             R = R->next_relasi;
         }
         if (!ada){
-            cout << "|   pasien tidak memiliki relasi dengan sekolah manapun" << endl;
+            cout << "|   pasien tidak memiliki relasi dengan dokter manapun" << endl;
         }
         cout << "------------------------------------------------------------" << endl;
     }
